@@ -36,19 +36,17 @@ def crawl(base_url, max_depth=2):
         if not response or not response.text:
             continue
 
-        print(response.status_code)
-        print(response.text[:500])
+        # print(response.status_code)
+        # print(response.text[:500])
 
         soup = BeautifulSoup(response.text, "html.parser")
 
-        # ✅ 0. Guardar endpoint base (aunque no tenga params)
         endpoints.append({
             "url": url,
             "method": "GET",
             "params": extract_params_from_url(url)
         })
 
-        # 🔹 1. Links
         for link in soup.find_all("a", href=True):
             href = urljoin(url, link["href"])
 
@@ -68,7 +66,6 @@ def crawl(base_url, max_depth=2):
             endpoints.append(endpoint)
             to_visit.append((href, depth + 1))
 
-        # 🔹 2. Forms
         for form in soup.find_all("form"):
             action = form.get("action")
             method = form.get("method", "get").upper()
