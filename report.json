@@ -1,4 +1,391 @@
 {
-    "timestamp": "2026-04-06T15:43:19.212008",
-    "findings": []
+    "timestamp": "2026-04-06T16:29:59.850104",
+    "findings": [
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/index.jsp",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/login.jsp",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/feedback.jsp",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/subscribe.jsp",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/survey_questions.jsp",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/status_check.jsp",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/swagger/index.html",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "XSS",
+            "url": "http://demo.testfire.net/search.jsp",
+            "method": "GET",
+            "severity": "HIGH"
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/search.jsp",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/index.jsp?content=security.htm",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/index.jsp?content=privacy.htm",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/index.jsp?content=inside_careers.htm",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/index.jsp?content=inside_press.htm",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/index.jsp?content=inside_investor.htm",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/index.jsp?content=inside_contact.htm",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/disclaimer.htm",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/index.jsp?content=inside_about.htm",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/index.jsp?content=inside.htm",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/pr/communityannualreport.pdf",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/index.jsp?content=business_other.htm",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/index.jsp?content=business_retirement.htm",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/index.jsp?content=business_insurance.htm",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/index.jsp?content=business_cards.htm",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/index.jsp?content=business_lending.htm",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/index.jsp?content=business_deposit.htm",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/high_yield_investments.htm",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/index.jsp?content=business.htm",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/index.jsp?content=personal_other.htm",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/admin/clients.xls",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/index.jsp?content=personal_investments.htm",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/index.jsp?content=personal_cards.htm",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/index.jsp?content=personal_loans.htm",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/index.jsp?content=personal_checking.htm",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/index.jsp?content=personal_deposit.htm",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/index.jsp?content=personal.htm",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/doLogin",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/survey_questions.jsp?step=a",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        },
+        {
+            "type": "Missing Security Headers",
+            "url": "http://demo.testfire.net/index.jsp?content=personal_savings.htm",
+            "severity": "MEDIUM",
+            "details": [
+                "Content-Security-Policy",
+                "Strict-Transport-Security",
+                "X-Frame-Options"
+            ]
+        }
+    ]
 }

@@ -1,47 +1,30 @@
-from urllib.parse import urlparse, parse_qs, urlencode, urlunparse
 from utils.http import get
 
 PAYLOAD = "<script>alert(1)</script>"
 
-def inject_payload(url):
-    parsed = urlparse(url)
-    params = parse_qs(parsed.query)
+def test_xss(endpoint):
+    url = endpoint["url"]
+    method = endpoint["method"]
+    params = endpoint["params"]
 
     if not params:
         return None
 
-    injected_params = {}
+    injected = {k: PAYLOAD for k in params}
 
-    for key in params:
-        injected_params[key] = PAYLOAD
+    if method == "GET":
+        query = "&".join(f"{k}={v}" for k, v in injected.items())
+        test_url = f"{url}?{query}"
+        response = get(test_url)
 
-    new_query = urlencode(injected_params, doseq=True)
-
-    new_url = urlunparse((
-        parsed.scheme,
-        parsed.netloc,
-        parsed.path,
-        parsed.params,
-        new_query,
-        parsed.fragment
-    ))
-
-    return new_url
-
-
-def test_xss(url):
-    injected_url = inject_payload(url)
-
-    if not injected_url:
-        return None
-
-    response = get(injected_url)
+    else:
+        response = get(url)  # MVP: dejamos POST para después
 
     if response and PAYLOAD in response.text:
         return {
             "type": "XSS",
             "url": url,
-            "tested_url": injected_url,
+            "method": method,
             "severity": "HIGH"
         }
 

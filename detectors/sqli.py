@@ -1,65 +1,36 @@
-from urllib.parse import urlparse, parse_qs, urlencode, urlunparse
 from utils.http import get
 
-SQL_PAYLOADS = [
-    "' OR '1'='1",
-    "' OR 1=1--",
-    "'; DROP TABLE users--"
-]
+SQL_PAYLOADS = ["' OR '1'='1", "' OR 1=1--"]
 
-SQL_ERRORS = [
-    "sql syntax",
-    "mysql",
-    "sqlite",
-    "syntax error",
-    "database error"
-]
+SQL_ERRORS = ["sql", "mysql", "sqlite", "syntax"]
 
-
-def inject_payload(url, payload):
-    parsed = urlparse(url)
-    params = parse_qs(parsed.query)
+def test_sqli(endpoint):
+    url = endpoint["url"]
+    method = endpoint["method"]
+    params = endpoint["params"]
 
     if not params:
         return None
 
-    injected_params = {}
-
-    for key in params:
-        injected_params[key] = payload
-
-    new_query = urlencode(injected_params, doseq=True)
-
-    return urlunparse((
-        parsed.scheme,
-        parsed.netloc,
-        parsed.path,
-        parsed.params,
-        new_query,
-        parsed.fragment
-    ))
-
-
-def test_sqli(url):
     for payload in SQL_PAYLOADS:
-        injected_url = inject_payload(url, payload)
+        injected = {k: payload for k in params}
 
-        if not injected_url:
-            continue
-
-        response = get(injected_url)
+        if method == "GET":
+            query = "&".join(f"{k}={v}" for k, v in injected.items())
+            test_url = f"{url}?{query}"
+            response = get(test_url)
+        else:
+            response = get(url)  # MVP
 
         if response:
             body = response.text.lower()
-
-            for error in SQL_ERRORS:
-                if error in body:
-                    return {
-                        "type": "SQL Injection",
-                        "url": url,
-                        "tested_url": injected_url,
-                        "severity": "HIGH",
-                        "payload": payload
-                    }
+            if any(err in body for err in SQL_ERRORS):
+                return {
+                    "type": "SQL Injection",
+                    "url": url,
+                    "method": method,
+                    "severity": "HIGH",
+                    "payload": payload
+                }
 
     return None

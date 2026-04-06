@@ -1,18 +1,253 @@
 
     <html>
     <head>
-        <title>Scan Report</title>
+        <title>Security Scan Report</title>
         <style>
-            body { font-family: Arial; }
+            body { font-family: Arial; padding: 20px; }
             .high { color: red; }
             .medium { color: orange; }
+            .card {
+                border: 1px solid #ddd;
+                padding: 10px;
+                margin-bottom: 10px;
+                border-radius: 8px;
+            }
         </style>
     </head>
     <body>
-        <h1>Vulnerability Report</h1>
-        <ul>
+        <h1>Security Scan Report</h1>
     
-        </ul>
-    </body>
-    </html>
-    
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/index.jsp</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/login.jsp</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/feedback.jsp</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/subscribe.jsp</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/survey_questions.jsp</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/status_check.jsp</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/swagger/index.html</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card high">
+            <h3>XSS (HIGH)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/search.jsp</p>
+            <p><strong>Description:</strong> User input is reflected without sanitization.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/search.jsp</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/index.jsp?content=security.htm</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/index.jsp?content=privacy.htm</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/index.jsp?content=inside_careers.htm</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/index.jsp?content=inside_press.htm</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/index.jsp?content=inside_investor.htm</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/index.jsp?content=inside_contact.htm</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/disclaimer.htm</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/index.jsp?content=inside_about.htm</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/index.jsp?content=inside.htm</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/pr/communityannualreport.pdf</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/index.jsp?content=business_other.htm</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/index.jsp?content=business_retirement.htm</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/index.jsp?content=business_insurance.htm</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/index.jsp?content=business_cards.htm</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/index.jsp?content=business_lending.htm</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/index.jsp?content=business_deposit.htm</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/high_yield_investments.htm</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/index.jsp?content=business.htm</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/index.jsp?content=personal_other.htm</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/admin/clients.xls</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/index.jsp?content=personal_investments.htm</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/index.jsp?content=personal_cards.htm</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/index.jsp?content=personal_loans.htm</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/index.jsp?content=personal_checking.htm</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/index.jsp?content=personal_deposit.htm</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/index.jsp?content=personal.htm</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/doLogin</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/survey_questions.jsp?step=a</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        
+        <div class="card medium">
+            <h3>Missing Security Headers (MEDIUM)</h3>
+            <p><strong>URL:</strong> http://demo.testfire.net/index.jsp?content=personal_savings.htm</p>
+            <p><strong>Description:</strong> Important security headers are not set.</p>
+        </div>
+        </body></html>
