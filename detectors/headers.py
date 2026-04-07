@@ -1,15 +1,19 @@
 from utils.http import get
 
+
 SECURITY_HEADERS = [
     "Content-Security-Policy",
+    "X-Frame-Options",
     "Strict-Transport-Security",
-    "X-Frame-Options"
+    "X-Content-Type-Options"
 ]
 
-def check_headers(url):
-    response = get(url)
+
+async def check_headers(url):
+    response, _ = await get(url) 
+
     if not response:
-        return []
+        return None
 
     missing = []
 
@@ -20,9 +24,9 @@ def check_headers(url):
     if missing:
         return {
             "type": "Missing Security Headers",
-            "url": url,
             "severity": "MEDIUM",
-            "details": missing
+            "url": url,
+            "details": f"Missing: {', '.join(missing)}"
         }
 
     return None

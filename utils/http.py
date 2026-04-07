@@ -1,13 +1,28 @@
-import requests
+import aiohttp
+import asyncio
 
-HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-    "Accept": "text/html,application/xhtml+xml",
-    "Accept-Language": "en-US,en;q=0.9"
-}
+session = None
 
-def get(url):
+async def get_session():
+    global session
+    if session is None:
+        session = aiohttp.ClientSession()
+    return session
+
+async def get(url):
     try:
-        return requests.get(url, headers=HEADERS, timeout=5)
-    except requests.RequestException:
-        return None
+        session = await get_session()
+
+        async with session.get(url, timeout=10) as response:
+            text = await response.text()
+            return response, text
+
+    except Exception as e:
+        print(f"[ERROR] {url} -> {e}")
+        return None, None
+
+async def close():
+    global session
+    if session:
+        await session.close()
+        session = None

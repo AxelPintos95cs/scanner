@@ -3,15 +3,34 @@ from detectors.xss import test_xss
 from detectors.headers import check_headers
 from detectors.sqli import test_sqli
 
+import asyncio
 
-def run_scan(url: str, depth: int) -> list:
+async def test_endpoint(e):
+    results = []
+
+    xss = await test_xss(e)
+    if xss:
+        results.append(xss)
+
+    sqli = await test_sqli(e)
+    if sqli:
+        results.append(sqli)
+
+    headers = await check_headers(e["url"])
+    if headers:
+        results.append(headers)
+
+    return results
+
+
+async def run_scan(url: str, depth: int) -> list:
     print("[+] Crawling...")
-    endpoints = crawl(url, depth)
+    endpoints = await crawl(url, depth)
 
     print(f"[+] Found {len(endpoints)} endpoints")
 
-    findings = []
     seen_endpoints = set()
+    unique_endpoints = []
 
     for e in endpoints:
         key = (
@@ -20,24 +39,17 @@ def run_scan(url: str, depth: int) -> list:
             tuple(sorted(e["params"].keys()))
         )
 
-        if key in seen_endpoints:
-            continue
+        if key not in seen_endpoints:
+            seen_endpoints.add(key)
+            unique_endpoints.append(e)
 
-        seen_endpoints.add(key)
+    print(f"[+] Testing {len(unique_endpoints)} unique endpoints")
 
-        print(f"[+] Testing {e['method']} {e['url']}")
+    tasks = [test_endpoint(e) for e in unique_endpoints]
 
-        xss = test_xss(e)
-        if xss:
-            findings.append(xss)
+    results = await asyncio.gather(*tasks)
 
-        sqli = test_sqli(e)
-        if sqli:
-            findings.append(sqli)
-
-        headers = check_headers(e["url"])
-        if headers:
-            findings.append(headers)
+    findings = [f for sublist in results for f in sublist if f]
 
     unique_findings = []
     seen_findings = set()

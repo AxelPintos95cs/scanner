@@ -2,7 +2,7 @@ from utils.http import get
 
 PAYLOAD = "<script>alert(1)</script>"
 
-def test_xss(endpoint):
+async def test_xss(endpoint):
     url = endpoint["url"]
     method = endpoint["method"]
     params = endpoint["params"]
@@ -10,23 +10,41 @@ def test_xss(endpoint):
     if not params:
         return None
 
-    injected = {k: PAYLOAD for k in params}
+    test_params = {k: PAYLOAD for k in params}
 
     if method == "GET":
-        query = "&".join(f"{k}={v}" for k, v in injected.items())
+        query = "&".join([f"{k}={v}" for k, v in test_params.items()])
         test_url = f"{url}?{query}"
-        response = get(test_url)
 
-    else:
-        response = get(url)  # MVP: dejamos POST para después
+        response, html = await get(test_url)
 
-    if response and PAYLOAD in response.text:
-        return {
-            "type": "XSS",
-            "url": url,
-            "method": method,
-            "severity": "HIGH",
-            "poc": test_url 
-        }
+        if not response or not html:
+            return None
+
+        if PAYLOAD in html:
+            return {
+                "type": "XSS",
+                "severity": "HIGH",
+                "url": url,
+                "method": method,
+                "poc": test_url,
+                "details": "Payload reflected in response"
+            }
+
+    elif method == "POST":
+        response, html = await get(url) 
+
+        if not response or not html:
+            return None
+
+        if PAYLOAD in html:
+            return {
+                "type": "XSS",
+                "severity": "HIGH",
+                "url": url,
+                "method": method,
+                "poc": f"{url} (POST)",
+                "details": "Payload reflected in POST response"
+            }
 
     return None
