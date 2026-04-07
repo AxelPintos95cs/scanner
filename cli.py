@@ -5,7 +5,7 @@ from core.scanner import run_scan
 from utils.report import save_json
 from reports.html_report import generate_html
 from utils.http import close  
-
+from reports.pdf_report import generate_pdf
 
 async def main():
     parser = argparse.ArgumentParser(description="Mini Web Vulnerability Scanner")
@@ -19,6 +19,7 @@ async def main():
     print("\n=== RESULTS ===")
     save_json(results)
     generate_html(results)
+    generate_pdf()
 
     for r in results:
         print(f"[{r['severity']}] {r['type']} at {r['url']}")
