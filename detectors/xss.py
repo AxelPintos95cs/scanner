@@ -25,7 +25,8 @@ def test_xss(endpoint):
             "type": "XSS",
             "url": url,
             "method": method,
-            "severity": "HIGH"
+            "severity": "HIGH",
+            "poc": test_url 
         }
 
     return None

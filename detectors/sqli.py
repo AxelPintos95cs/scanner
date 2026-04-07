@@ -30,7 +30,8 @@ def test_sqli(endpoint):
                     "url": url,
                     "method": method,
                     "severity": "HIGH",
-                    "payload": payload
+                    "payload": payload,
+                    "poc": test_url 
                 }
 
     return None
