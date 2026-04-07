@@ -115,3 +115,7 @@ You can test safely using intentionally vulnerable apps:
 * http://demo.testfire.net
 
 ---
+
+## Docker support included (PDF generation ready)
+
+---
