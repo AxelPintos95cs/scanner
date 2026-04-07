@@ -6,13 +6,14 @@
 
         <style>
             body {
-                font-family: Arial;
-                padding: 20px;
-                background: #f5f5f5;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+                padding: 30px;
+                background: #f4f6f9;
+                color: #333;
             }
 
             h1 {
-                color: #222;
+                margin-bottom: 20px;
             }
 
             h2 {
@@ -23,15 +24,19 @@
 
             .summary {
                 display: flex;
-                gap: 10px;
-                margin-bottom: 20px;
+                gap: 15px;
+                margin-bottom: 30px;
             }
 
             .box {
-                padding: 10px 15px;
-                border-radius: 6px;
+                flex: 1;
+                padding: 20px;
+                border-radius: 10px;
                 color: white;
+                font-size: 18px;
                 font-weight: bold;
+                text-align: center;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             }
 
             .high { background: #e74c3c; }
@@ -41,28 +46,49 @@
 
             .card {
                 background: white;
+                border-left: 6px solid #ccc;
                 border-radius: 10px;
-                padding: 15px;
+                padding: 20px;
                 margin-bottom: 20px;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+                box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+                transition: transform 0.1s ease;
             }
 
-            .card h3 {
-                margin-top: 0;
+            .card:hover {
+                transform: translateY(-2px);
             }
+
+            .card.high { border-color: #e74c3c; }
+            .card.medium { border-color: #f39c12; }
+            .card.low { border-color: #27ae60; }
+
+            .badge {
+                display: inline-block;
+                padding: 4px 10px;
+                border-radius: 6px;
+                font-size: 12px;
+                font-weight: bold;
+                color: white;
+                margin-left: 10px;
+            }
+
+            .badge.high { background: #e74c3c; }
+            .badge.medium { background: #f39c12; }
+            .badge.low { background: #27ae60; }
 
             code {
                 background: #eee;
-                padding: 8px;
+                padding: 10px;
                 border-radius: 6px;
                 display: block;
-                margin-top: 8px;
+                margin-top: 10px;
                 overflow-x: auto;
             }
 
             a {
                 color: #3498db;
                 text-decoration: none;
+                word-break: break-all;
             }
 
             a:hover {
@@ -70,28 +96,31 @@
             }
 
             ul {
-                max-height: 200px;
+                max-height: 250px;
                 overflow-y: auto;
                 background: #fafafa;
                 padding: 10px;
                 border-radius: 6px;
             }
+
         </style>
     </head>
 
     <body>
         <h1>🔐 Security Scan Report</h1>
 
-        <!-- SUMMARY -->
         <div class="summary">
-            <div class="box high">HIGH: 1</div>
-            <div class="box medium">MEDIUM: 1</div>
-            <div class="box low">LOW: 0</div>
-            <div class="box total">TOTAL: 45</div>
+            <div class="box high">HIGH<br>1</div>
+            <div class="box medium">MEDIUM<br>1</div>
+            <div class="box low">LOW<br>0</div>
+            <div class="box total">TOTAL<br>45</div>
         </div>
-    <h2 class='high'>HIGH</h2>
-            <div class="card">
-                <h3>XSS <span class="box high">HIGH</span></h3>
+    <h2>HIGH</h2>
+            <div class="card high">
+                <h3>
+                    XSS
+                    <span class="badge high">HIGH</span>
+                </h3>
 
                 <p><strong>URL:</strong>
                     <a href="http://demo.testfire.net/search.jsp" target="_blank">http://demo.testfire.net/search.jsp</a>
@@ -108,9 +137,12 @@
                 
             </div>
             
-        <h2 class="medium">MEDIUM</h2>
-        <div class="card">
-            <h3>Missing Security Headers</h3>
+        <h2>MEDIUM</h2>
+        <div class="card medium">
+            <h3>
+                Missing Security Headers
+                <span class="badge medium">MEDIUM</span>
+            </h3>
 
             <p><strong>Description:</strong> Important security headers are not set.</p>
             <p><strong>Impact:</strong> The application is more vulnerable to common web attacks.</p>
@@ -118,4 +150,4 @@
 
             <p><strong>Affected URLs (44):</strong></p>
             <ul>
-        <li><a href="http://demo.testfire.net" target="_blank">http://demo.testfire.net</a></li><li><a href="http://demo.testfire.net/Privacypolicy.jsp" target="_blank">http://demo.testfire.net/Privacypolicy.jsp</a></li><li><a href="http://demo.testfire.net/cgi.exe" target="_blank">http://demo.testfire.net/cgi.exe</a></li><li><a href="http://demo.testfire.net/default.jsp" target="_blank">http://demo.testfire.net/default.jsp</a></li><li><a href="http://demo.testfire.net/default.jsp?content=security.htm" target="_blank">http://demo.testfire.net/default.jsp?content=security.htm</a></li><li><a href="http://demo.testfire.net/disclaimer.htm" target="_blank">http://demo.testfire.net/disclaimer.htm</a></li><li><a href="http://demo.testfire.net/doLogin" target="_blank">http://demo.testfire.net/doLogin</a></li><li><a href="http://demo.testfire.net/doSubscribe" target="_blank">http://demo.testfire.net/doSubscribe</a></li><li><a href="http://demo.testfire.net/feedback.jsp" target="_blank">http://demo.testfire.net/feedback.jsp</a></li><li><a href="http://demo.testfire.net/high_yield_investments.htm" target="_blank">http://demo.testfire.net/high_yield_investments.htm</a></li><li><a href="http://demo.testfire.net/index.jsp" target="_blank">http://demo.testfire.net/index.jsp</a></li><li><a href="http://demo.testfire.net/index.jsp?content=business.htm" target="_blank">http://demo.testfire.net/index.jsp?content=business.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=business_cards.htm" target="_blank">http://demo.testfire.net/index.jsp?content=business_cards.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=business_deposit.htm" target="_blank">http://demo.testfire.net/index.jsp?content=business_deposit.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=business_insurance.htm" target="_blank">http://demo.testfire.net/index.jsp?content=business_insurance.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=business_lending.htm" target="_blank">http://demo.testfire.net/index.jsp?content=business_lending.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=business_other.htm" target="_blank">http://demo.testfire.net/index.jsp?content=business_other.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=business_retirement.htm" target="_blank">http://demo.testfire.net/index.jsp?content=business_retirement.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=inside.htm" target="_blank">http://demo.testfire.net/index.jsp?content=inside.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=inside_about.htm" target="_blank">http://demo.testfire.net/index.jsp?content=inside_about.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=inside_careers.htm" target="_blank">http://demo.testfire.net/index.jsp?content=inside_careers.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=inside_contact.htm" target="_blank">http://demo.testfire.net/index.jsp?content=inside_contact.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=inside_investor.htm" target="_blank">http://demo.testfire.net/index.jsp?content=inside_investor.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=inside_press.htm" target="_blank">http://demo.testfire.net/index.jsp?content=inside_press.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=personal.htm" target="_blank">http://demo.testfire.net/index.jsp?content=personal.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=personal_cards.htm" target="_blank">http://demo.testfire.net/index.jsp?content=personal_cards.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=personal_checking.htm" target="_blank">http://demo.testfire.net/index.jsp?content=personal_checking.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=personal_deposit.htm" target="_blank">http://demo.testfire.net/index.jsp?content=personal_deposit.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=personal_investments.htm" target="_blank">http://demo.testfire.net/index.jsp?content=personal_investments.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=personal_loans.htm" target="_blank">http://demo.testfire.net/index.jsp?content=personal_loans.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=personal_other.htm" target="_blank">http://demo.testfire.net/index.jsp?content=personal_other.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=personal_savings.htm" target="_blank">http://demo.testfire.net/index.jsp?content=personal_savings.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=privacy.htm" target="_blank">http://demo.testfire.net/index.jsp?content=privacy.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=security.htm" target="_blank">http://demo.testfire.net/index.jsp?content=security.htm</a></li><li><a href="http://demo.testfire.net/inside_points_of_interest.htm" target="_blank">http://demo.testfire.net/inside_points_of_interest.htm</a></li><li><a href="http://demo.testfire.net/login.jsp" target="_blank">http://demo.testfire.net/login.jsp</a></li><li><a href="http://demo.testfire.net/my%20documents/JohnSmith/Bank%20Site%20Documents/grouplife.htm" target="_blank">http://demo.testfire.net/my%20documents/JohnSmith/Bank%20Site%20Documents/grouplife.htm</a></li><li><a href="http://demo.testfire.net/search.jsp" target="_blank">http://demo.testfire.net/search.jsp</a></li><li><a href="http://demo.testfire.net/sendFeedback" target="_blank">http://demo.testfire.net/sendFeedback</a></li><li><a href="http://demo.testfire.net/status_check.jsp" target="_blank">http://demo.testfire.net/status_check.jsp</a></li><li><a href="http://demo.testfire.net/subscribe.jsp" target="_blank">http://demo.testfire.net/subscribe.jsp</a></li><li><a href="http://demo.testfire.net/survey_questions.jsp" target="_blank">http://demo.testfire.net/survey_questions.jsp</a></li><li><a href="http://demo.testfire.net/survey_questions.jsp?step=a" target="_blank">http://demo.testfire.net/survey_questions.jsp?step=a</a></li><li><a href="http://demo.testfire.net/swagger/index.html" target="_blank">http://demo.testfire.net/swagger/index.html</a></li></ul></div></body></html>
+        <li><a href="http://demo.testfire.net/index.jsp?content=inside_press.htm" target="_blank">http://demo.testfire.net/index.jsp?content=inside_press.htm</a></li><li><a href="http://demo.testfire.net/sendFeedback" target="_blank">http://demo.testfire.net/sendFeedback</a></li><li><a href="http://demo.testfire.net/status_check.jsp" target="_blank">http://demo.testfire.net/status_check.jsp</a></li><li><a href="http://demo.testfire.net/index.jsp?content=business_insurance.htm" target="_blank">http://demo.testfire.net/index.jsp?content=business_insurance.htm</a></li><li><a href="http://demo.testfire.net/search.jsp" target="_blank">http://demo.testfire.net/search.jsp</a></li><li><a href="http://demo.testfire.net/cgi.exe" target="_blank">http://demo.testfire.net/cgi.exe</a></li><li><a href="http://demo.testfire.net/index.jsp?content=personal_loans.htm" target="_blank">http://demo.testfire.net/index.jsp?content=personal_loans.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=personal_other.htm" target="_blank">http://demo.testfire.net/index.jsp?content=personal_other.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=inside.htm" target="_blank">http://demo.testfire.net/index.jsp?content=inside.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=personal.htm" target="_blank">http://demo.testfire.net/index.jsp?content=personal.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=inside_contact.htm" target="_blank">http://demo.testfire.net/index.jsp?content=inside_contact.htm</a></li><li><a href="http://demo.testfire.net/high_yield_investments.htm" target="_blank">http://demo.testfire.net/high_yield_investments.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=personal_cards.htm" target="_blank">http://demo.testfire.net/index.jsp?content=personal_cards.htm</a></li><li><a href="http://demo.testfire.net/Privacypolicy.jsp" target="_blank">http://demo.testfire.net/Privacypolicy.jsp</a></li><li><a href="http://demo.testfire.net/default.jsp?content=security.htm" target="_blank">http://demo.testfire.net/default.jsp?content=security.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=personal_investments.htm" target="_blank">http://demo.testfire.net/index.jsp?content=personal_investments.htm</a></li><li><a href="http://demo.testfire.net/my%20documents/JohnSmith/Bank%20Site%20Documents/grouplife.htm" target="_blank">http://demo.testfire.net/my%20documents/JohnSmith/Bank%20Site%20Documents/grouplife.htm</a></li><li><a href="http://demo.testfire.net/login.jsp" target="_blank">http://demo.testfire.net/login.jsp</a></li><li><a href="http://demo.testfire.net/inside_points_of_interest.htm" target="_blank">http://demo.testfire.net/inside_points_of_interest.htm</a></li><li><a href="http://demo.testfire.net/index.jsp" target="_blank">http://demo.testfire.net/index.jsp</a></li><li><a href="http://demo.testfire.net/doLogin" target="_blank">http://demo.testfire.net/doLogin</a></li><li><a href="http://demo.testfire.net/index.jsp?content=business.htm" target="_blank">http://demo.testfire.net/index.jsp?content=business.htm</a></li><li><a href="http://demo.testfire.net/survey_questions.jsp?step=a" target="_blank">http://demo.testfire.net/survey_questions.jsp?step=a</a></li><li><a href="http://demo.testfire.net/disclaimer.htm" target="_blank">http://demo.testfire.net/disclaimer.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=personal_checking.htm" target="_blank">http://demo.testfire.net/index.jsp?content=personal_checking.htm</a></li><li><a href="http://demo.testfire.net/doSubscribe" target="_blank">http://demo.testfire.net/doSubscribe</a></li><li><a href="http://demo.testfire.net/survey_questions.jsp" target="_blank">http://demo.testfire.net/survey_questions.jsp</a></li><li><a href="http://demo.testfire.net/index.jsp?content=business_lending.htm" target="_blank">http://demo.testfire.net/index.jsp?content=business_lending.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=business_deposit.htm" target="_blank">http://demo.testfire.net/index.jsp?content=business_deposit.htm</a></li><li><a href="http://demo.testfire.net/feedback.jsp" target="_blank">http://demo.testfire.net/feedback.jsp</a></li><li><a href="http://demo.testfire.net/index.jsp?content=business_retirement.htm" target="_blank">http://demo.testfire.net/index.jsp?content=business_retirement.htm</a></li><li><a href="http://demo.testfire.net" target="_blank">http://demo.testfire.net</a></li><li><a href="http://demo.testfire.net/index.jsp?content=inside_about.htm" target="_blank">http://demo.testfire.net/index.jsp?content=inside_about.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=privacy.htm" target="_blank">http://demo.testfire.net/index.jsp?content=privacy.htm</a></li><li><a href="http://demo.testfire.net/swagger/index.html" target="_blank">http://demo.testfire.net/swagger/index.html</a></li><li><a href="http://demo.testfire.net/index.jsp?content=inside_careers.htm" target="_blank">http://demo.testfire.net/index.jsp?content=inside_careers.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=personal_deposit.htm" target="_blank">http://demo.testfire.net/index.jsp?content=personal_deposit.htm</a></li><li><a href="http://demo.testfire.net/subscribe.jsp" target="_blank">http://demo.testfire.net/subscribe.jsp</a></li><li><a href="http://demo.testfire.net/index.jsp?content=business_cards.htm" target="_blank">http://demo.testfire.net/index.jsp?content=business_cards.htm</a></li><li><a href="http://demo.testfire.net/default.jsp" target="_blank">http://demo.testfire.net/default.jsp</a></li><li><a href="http://demo.testfire.net/index.jsp?content=security.htm" target="_blank">http://demo.testfire.net/index.jsp?content=security.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=business_other.htm" target="_blank">http://demo.testfire.net/index.jsp?content=business_other.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=inside_investor.htm" target="_blank">http://demo.testfire.net/index.jsp?content=inside_investor.htm</a></li><li><a href="http://demo.testfire.net/index.jsp?content=personal_savings.htm" target="_blank">http://demo.testfire.net/index.jsp?content=personal_savings.htm</a></li></ul></div></body></html>

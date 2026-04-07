@@ -11,11 +11,6 @@ def generate_html(findings, filename="report.html"):
         else:
             grouped[f["severity"]].append(f)
 
-    total = len(findings)
-    high = len(grouped["HIGH"])
-    medium = len(grouped["MEDIUM"]) + (1 if header_urls else 0)
-    low = len(grouped["LOW"])
-
     description = {
         "XSS": "User input is reflected without sanitization.",
         "SQL Injection": "Database queries may be manipulated.",
@@ -34,6 +29,11 @@ def generate_html(findings, filename="report.html"):
         "Missing Security Headers": "Implement headers like CSP, HSTS, and X-Frame-Options."
     }
 
+    total = len(findings)
+    high = len(grouped["HIGH"])
+    medium = len(grouped["MEDIUM"]) + (1 if header_urls else 0)
+    low = len(grouped["LOW"])
+
     html_content = f"""
     <html>
     <head>
@@ -42,13 +42,14 @@ def generate_html(findings, filename="report.html"):
 
         <style>
             body {{
-                font-family: Arial;
-                padding: 20px;
-                background: #f5f5f5;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+                padding: 30px;
+                background: #f4f6f9;
+                color: #333;
             }}
 
             h1 {{
-                color: #222;
+                margin-bottom: 20px;
             }}
 
             h2 {{
@@ -59,15 +60,19 @@ def generate_html(findings, filename="report.html"):
 
             .summary {{
                 display: flex;
-                gap: 10px;
-                margin-bottom: 20px;
+                gap: 15px;
+                margin-bottom: 30px;
             }}
 
             .box {{
-                padding: 10px 15px;
-                border-radius: 6px;
+                flex: 1;
+                padding: 20px;
+                border-radius: 10px;
                 color: white;
+                font-size: 18px;
                 font-weight: bold;
+                text-align: center;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             }}
 
             .high {{ background: #e74c3c; }}
@@ -77,28 +82,49 @@ def generate_html(findings, filename="report.html"):
 
             .card {{
                 background: white;
+                border-left: 6px solid #ccc;
                 border-radius: 10px;
-                padding: 15px;
+                padding: 20px;
                 margin-bottom: 20px;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+                box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+                transition: transform 0.1s ease;
             }}
 
-            .card h3 {{
-                margin-top: 0;
+            .card:hover {{
+                transform: translateY(-2px);
             }}
+
+            .card.high {{ border-color: #e74c3c; }}
+            .card.medium {{ border-color: #f39c12; }}
+            .card.low {{ border-color: #27ae60; }}
+
+            .badge {{
+                display: inline-block;
+                padding: 4px 10px;
+                border-radius: 6px;
+                font-size: 12px;
+                font-weight: bold;
+                color: white;
+                margin-left: 10px;
+            }}
+
+            .badge.high {{ background: #e74c3c; }}
+            .badge.medium {{ background: #f39c12; }}
+            .badge.low {{ background: #27ae60; }}
 
             code {{
                 background: #eee;
-                padding: 8px;
+                padding: 10px;
                 border-radius: 6px;
                 display: block;
-                margin-top: 8px;
+                margin-top: 10px;
                 overflow-x: auto;
             }}
 
             a {{
                 color: #3498db;
                 text-decoration: none;
+                word-break: break-all;
             }}
 
             a:hover {{
@@ -106,24 +132,24 @@ def generate_html(findings, filename="report.html"):
             }}
 
             ul {{
-                max-height: 200px;
+                max-height: 250px;
                 overflow-y: auto;
                 background: #fafafa;
                 padding: 10px;
                 border-radius: 6px;
             }}
+
         </style>
     </head>
 
     <body>
         <h1>🔐 Security Scan Report</h1>
 
-        <!-- SUMMARY -->
         <div class="summary">
-            <div class="box high">HIGH: {high}</div>
-            <div class="box medium">MEDIUM: {medium}</div>
-            <div class="box low">LOW: {low}</div>
-            <div class="box total">TOTAL: {total}</div>
+            <div class="box high">HIGH<br>{high}</div>
+            <div class="box medium">MEDIUM<br>{medium}</div>
+            <div class="box low">LOW<br>{low}</div>
+            <div class="box total">TOTAL<br>{total}</div>
         </div>
     """
 
@@ -131,7 +157,7 @@ def generate_html(findings, filename="report.html"):
         if not items:
             continue
 
-        html_content += f"<h2 class='{severity.lower()}'>{severity}</h2>"
+        html_content += f"<h2>{severity}</h2>"
 
         for f in items:
             poc_block = ""
@@ -143,8 +169,11 @@ def generate_html(findings, filename="report.html"):
                 """
 
             html_content += f"""
-            <div class="card">
-                <h3>{f['type']} <span class="box {severity.lower()}">{severity}</span></h3>
+            <div class="card {severity.lower()}">
+                <h3>
+                    {f['type']}
+                    <span class="badge {severity.lower()}">{severity}</span>
+                </h3>
 
                 <p><strong>URL:</strong>
                     <a href="{f['url']}" target="_blank">{f['url']}</a>
@@ -159,12 +188,15 @@ def generate_html(findings, filename="report.html"):
             """
 
     if header_urls:
-        unique_urls = sorted(set(header_urls))
+        unique_urls = list(set(header_urls))
 
         html_content += f"""
-        <h2 class="medium">MEDIUM</h2>
-        <div class="card">
-            <h3>Missing Security Headers</h3>
+        <h2>MEDIUM</h2>
+        <div class="card medium">
+            <h3>
+                Missing Security Headers
+                <span class="badge medium">MEDIUM</span>
+            </h3>
 
             <p><strong>Description:</strong> {description['Missing Security Headers']}</p>
             <p><strong>Impact:</strong> {impact['Missing Security Headers']}</p>
