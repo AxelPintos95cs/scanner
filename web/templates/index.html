@@ -28,9 +28,8 @@
             border-radius: 10px;
             box-shadow: 0 3px 10px rgba(0,0,0,0.1);
             display: flex;
-            flex-direction: column;  /* Cambiado a columna para mejor organización */
+            flex-direction: column;
             gap: 15px;
-            justify-content: center;
             margin-bottom: 20px;
             max-width: 500px;
             margin-left: auto;
@@ -41,6 +40,7 @@
             display: flex;
             flex-direction: column;
             gap: 5px;
+            text-align: center;
         }
 
         label {
@@ -57,7 +57,8 @@
         }
 
         input[type="number"] {
-            width: 100px;  /* Ajustado para que no sea tan ancho */
+            width: 50px;
+            margin: 0 auto;
         }
 
         button {
@@ -68,7 +69,7 @@
             border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
-            align-self: center;  /* Centrar el botón */
+            align-self: center;
         }
 
         button:hover {
@@ -82,10 +83,51 @@
             font-weight: bold;
         }
 
+        /* DASHBOARD */
+        .dashboard {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .box {
+            flex: 1;
+            padding: 15px;
+            border-radius: 8px;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .high-box { background: #e74c3c; }
+        .medium-box { background: #f39c12; }
+        .low-box { background: #27ae60; }
+        .total-box { background: #34495e; }
+
+        /* SCORE COLORS */
+        .score-low { background: #c0392b; }
+        .score-medium { background: #d4ac0d; }
+        .score-high { background: #16a085; }
+
+        .score-box {
+            margin-top: 10px;
+            padding: 15px;
+            border-radius: 10px;
+            color: white;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .download-section {
+            text-align: center;
+            margin-top: 20px;
+        }
+
         .card {
             background: white;
             padding: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             border-radius: 10px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
@@ -105,6 +147,14 @@
         .high-badge { background: #e74c3c; }
         .medium-badge { background: #f39c12; }
         .low-badge { background: #27ae60; }
+
+        .url-list {
+            max-height: 200px;
+            overflow-y: auto;
+            background: #fafafa;
+            padding: 10px;
+            border-radius: 6px;
+        }
 
         code {
             background: #eee;
@@ -133,7 +183,34 @@
         .help-text {
             font-size: 12px;
             color: #777;
-            margin-top: 5px;
+        }
+
+        /* PDF FIX */
+        @media print {
+            .form-box,
+            .loader,
+            .download-section,
+            h1 {
+                display: none !important;
+            }
+
+            body {
+                background: white;
+            }
+
+            .container {
+                max-width: 100%;
+                padding: 10px;
+            }
+
+            .card {
+                page-break-inside: avoid;
+            }
+
+            .url-list {
+                max-height: none !important;
+                overflow: visible !important;
+            }
         }
     </style>
 
@@ -149,69 +226,117 @@
 
 <div class="container">
 
-    <h1>🔐 Web Vulnerability Scanner</h1>
+    {% if not pdf_mode %}
+        <h1>🔐 Web Vulnerability Scanner</h1>
+    {% endif %}
 
     <!-- FORM -->
+    {% if not pdf_mode %}
     <form method="POST" class="form-box" onsubmit="showLoader();">
-        <div class="form-group" style="text-align: center;">
-            <label for="url">URL to Scan:</label>
-            <input type="text" id="url" name="url" placeholder="http://example.com" required>
+        <div class="form-group">
+            <label>URL to Scan:</label>
+            <input type="text" name="url" placeholder="http://example.com" required>
         </div>
-        
-        <div class="form-group" style="text-align: center;">
-            <label for="depth">Scan Depth:</label>
-            <input type="number" id="depth" name="depth" value="2" min="1" max="5" style="width: 50px; margin: 0 auto; display: block;">
-            <div class="help-text">Profundidad del escaneo (1-5). Mayor profundidad busca más páginas pero toma más tiempo.</div>
+
+        <div class="form-group">
+            <label>Scan Depth:</label>
+            <input type="number" name="depth" value="2" min="1" max="5">
         </div>
-        
+
         <button type="submit">Scan</button>
     </form>
+    {% endif %}
 
     <!-- LOADER -->
+    {% if not pdf_mode %}
     <div id="loader" class="loader">
         🔎 Scanning... please wait
     </div>
+    {% endif %}
 
-    <!-- RESULTS -->
     {% if results %}
-        <h2>Results</h2>
+        {% set high = results | selectattr("severity", "equalto", "HIGH") | list | length %}
+        {% set medium = results | selectattr("severity", "equalto", "MEDIUM") | list | length %}
+        {% set low = results | selectattr("severity", "equalto", "LOW") | list | length %}
+        {% set total = results | length %}
 
-        {% for r in results %}
-            <div class="card {{ r.severity.lower() }}">
-                <h3>
-                    {{ r.type }}
-                    <span class="severity {{ r.severity.lower() }}-badge">
-                        {{ r.severity }}
-                    </span>
-                </h3>
+        {% set score = 100 - (high * 5) - (medium * 3) - (low * 1) %}
+        {% if score < 0 %}{% set score = 0 %}{% endif %}
 
-                <p>
-                    <strong>URL:</strong>
-                    <a href="{{ r.url }}" target="_blank">{{ r.url }}</a>
-                </p>
+        {% if score <= 30 %}
+            {% set score_class = "score-low" %}
+        {% elif score <= 69 %}
+            {% set score_class = "score-medium" %}
+        {% else %}
+            {% set score_class = "score-high" %}
+        {% endif %}
 
-                {% if r.description %}
-                    <p><strong>Description:</strong> {{ r.description }}</p>
-                {% endif %}
+        <!-- DASHBOARD -->
+        <div class="dashboard">
+            <div class="box high-box">HIGH<br>{{ high }}</div>
+            <div class="box medium-box">MEDIUM<br>{{ medium }}</div>
+            <div class="box low-box">LOW<br>{{ low }}</div>
+            <div class="box total-box">TOTAL<br>{{ total }}</div>
+        </div>
 
-                {% if r.impact %}
-                    <p><strong>Impact:</strong> {{ r.impact }}</p>
-                {% endif %}
+        <!-- SCORE -->
+        <div class="score-box {{ score_class }}">
+            Security Score: {{ score }}/100
+        </div>
 
-                {% if r.recommendation %}
-                    <p><strong>Recommendation:</strong> {{ r.recommendation }}</p>
-                {% endif %}
+        <!-- DOWNLOAD -->
+        {% if not pdf_mode %}
+        <div class="download-section">
+            <a href="/download_pdf">
+                <button>Download PDF Report</button>
+            </a>
+        </div>
+        {% endif %}
 
-                {% if r.poc %}
-                    <p><strong>PoC:</strong></p>
-                    <code>{{ r.poc }}</code>
-                {% endif %}
-            </div>
+        <h2 style="margin-top:30px;">Results</h2>
+
+        {% for severity in ["HIGH", "MEDIUM", "LOW"] %}
+            {% set filtered = results | selectattr("severity", "equalto", severity) | list %}
+
+            {% if filtered %}
+                <h3 style="margin-top:30px;">{{ severity }}</h3>
+
+                {% for group in filtered | groupby('type') %}
+                    {% set items = group.list %}
+                    {% set first = items[0] %}
+
+                    <div class="card {{ first.severity.lower() }}">
+                        <h3>
+                            {{ group.grouper }} ({{ items|length }} {{ "URL" if items|length == 1 else "URLs" }})
+                            <span class="severity {{ first.severity.lower() }}-badge">
+                                {{ first.severity }}
+                            </span>
+                        </h3>
+
+                        <p><strong>Affected URLs:</strong></p>
+
+                        <!-- FIX PDF -->
+                        <ul class="url-list" style="max-height:none; overflow:visible;">
+                            {% for r in items %}
+                                <li>
+                                    <a href="{{ r.url }}" target="_blank">{{ r.url }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+
+                        {% if first.poc %}
+                            <p><strong>PoC:</strong></p>
+                            <code>{{ first.poc }}</code>
+                        {% endif %}
+                    </div>
+
+                {% endfor %}
+            {% endif %}
         {% endfor %}
 
     {% else %}
         <div class="empty">
-            No results yet. Run a scan 
+            No results yet.
         </div>
     {% endif %}
 

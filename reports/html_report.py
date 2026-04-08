@@ -6,10 +6,9 @@ def generate_html(findings, filename="report.html"):
     header_urls = []
 
     for f in findings:
-        if f["type"] == "Missing Security Headers":
-            header_urls.append(f["url"])
-        else:
-            grouped[f["severity"]].append(f)
+        sev = f.get("severity", "").upper()
+        if sev in grouped:
+            grouped[sev].append(f)
 
     description = {
         "XSS": "User input is reflected without sanitization.",
