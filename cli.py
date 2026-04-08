@@ -17,9 +17,9 @@ async def main():
     results: list = await run_scan(args.url, args.depth)
 
     print("\n=== RESULTS ===")
-    save_json(results)
-    generate_html(results)
-    generate_pdf()
+    save_json(results, "output/report.json")
+    generate_html(results, "output/report.html")
+    generate_pdf("output/report.html", "output/report.pdf")
 
     for r in results:
         print(f"[{r['severity']}] {r['type']} at {r['url']}")

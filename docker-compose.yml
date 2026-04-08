@@ -1,0 +1,9 @@
+version: "3.9"
+
+services:
+  webscanner:
+    build: .
+    container_name: webscanner
+    volumes:
+      - ./output:/app/output
+    command: --url http://demo.testfire.net --depth 2
