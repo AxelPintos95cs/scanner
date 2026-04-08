@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Web Vulnerability Scanner</title>
+
+    <style>
+        body {
+            font-family: "Segoe UI", Arial;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .form-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;  /* Cambiado a columna para mejor organización */
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 20px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        input {
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        input[type="number"] {
+            width: 100px;  /* Ajustado para que no sea tan ancho */
+        }
+
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            align-self: center;  /* Centrar el botón */
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+
+        .loader {
+            text-align: center;
+            margin: 20px;
+            display: none;
+            font-weight: bold;
+        }
+
+        .card {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .high { border-left: 6px solid #e74c3c; }
+        .medium { border-left: 6px solid #f39c12; }
+        .low { border-left: 6px solid #27ae60; }
+
+        .severity {
+            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            margin-left: 10px;
+        }
+
+        .high-badge { background: #e74c3c; }
+        .medium-badge { background: #f39c12; }
+        .low-badge { background: #27ae60; }
+
+        code {
+            background: #eee;
+            padding: 6px;
+            border-radius: 5px;
+            display: block;
+            margin-top: 5px;
+            overflow-x: auto;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .empty {
+            text-align: center;
+            color: #777;
+            margin-top: 20px;
+        }
+
+        .help-text {
+            font-size: 12px;
+            color: #777;
+            margin-top: 5px;
+        }
+    </style>
+
+    <script>
+        function showLoader() {
+            document.getElementById("loader").style.display = "block";
+        }
+    </script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🔐 Web Vulnerability Scanner</h1>
+
+    <!-- FORM -->
+    <form method="POST" class="form-box" onsubmit="showLoader();">
+        <div class="form-group" style="text-align: center;">
+            <label for="url">URL to Scan:</label>
+            <input type="text" id="url" name="url" placeholder="http://example.com" required>
+        </div>
+        
+        <div class="form-group" style="text-align: center;">
+            <label for="depth">Scan Depth:</label>
+            <input type="number" id="depth" name="depth" value="2" min="1" max="5" style="width: 50px; margin: 0 auto; display: block;">
+            <div class="help-text">Profundidad del escaneo (1-5). Mayor profundidad busca más páginas pero toma más tiempo.</div>
+        </div>
+        
+        <button type="submit">Scan</button>
+    </form>
+
+    <!-- LOADER -->
+    <div id="loader" class="loader">
+        🔎 Scanning... please wait
+    </div>
+
+    <!-- RESULTS -->
+    {% if results %}
+        <h2>Results</h2>
+
+        {% for r in results %}
+            <div class="card {{ r.severity.lower() }}">
+                <h3>
+                    {{ r.type }}
+                    <span class="severity {{ r.severity.lower() }}-badge">
+                        {{ r.severity }}
+                    </span>
+                </h3>
+
+                <p>
+                    <strong>URL:</strong>
+                    <a href="{{ r.url }}" target="_blank">{{ r.url }}</a>
+                </p>
+
+                {% if r.description %}
+                    <p><strong>Description:</strong> {{ r.description }}</p>
+                {% endif %}
+
+                {% if r.impact %}
+                    <p><strong>Impact:</strong> {{ r.impact }}</p>
+                {% endif %}
+
+                {% if r.recommendation %}
+                    <p><strong>Recommendation:</strong> {{ r.recommendation }}</p>
+                {% endif %}
+
+                {% if r.poc %}
+                    <p><strong>PoC:</strong></p>
+                    <code>{{ r.poc }}</code>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+    {% else %}
+        <div class="empty">
+            No results yet. Run a scan 
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

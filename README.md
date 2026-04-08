@@ -118,4 +118,11 @@ You can test safely using intentionally vulnerable apps:
 
 ## Docker support included (PDF generation ready)
 
+Docker Usage
+
+Run the scanner with Docker Compose:
+
+```bash
+docker-compose up --build
+
 ---

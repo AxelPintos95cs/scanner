@@ -2,6 +2,7 @@ from crawler.crawler import crawl
 from detectors.xss import test_xss
 from detectors.headers import check_headers
 from detectors.sqli import test_sqli
+from utils.http import close
 
 import asyncio
 
@@ -61,4 +62,5 @@ async def run_scan(url: str, depth: int) -> list:
             seen_findings.add(key)
             unique_findings.append(f)
 
+    await close()
     return unique_findings

@@ -41,27 +41,45 @@ async def crawl(base_url, max_depth=2):
         if not response or not html:
             continue
 
+        # ✅ Evitar parsear cosas que no sean HTML
+        content_type = response.headers.get("Content-Type", "")
+        if "text/html" not in content_type:
+            continue
+
         soup = BeautifulSoup(html, "html.parser")
 
-        base_endpoint = (
+        # ✅ Endpoint base
+        params = extract_params_from_url(url)
+        endpoint_key = (
             "GET",
-            url,
-            tuple(sorted(extract_params_from_url(url).keys()))
+            url.split("?")[0],
+            tuple(sorted(params.keys()))
         )
 
-        if base_endpoint not in seen_endpoints:
-            seen_endpoints.add(base_endpoint)
+        if endpoint_key not in seen_endpoints:
+            seen_endpoints.add(endpoint_key)
 
             endpoints.append({
-                "url": url,
+                "url": url.split("?")[0],
                 "method": "GET",
-                "params": extract_params_from_url(url)
+                "params": params
             })
 
+        # 🔗 Links
         for link in soup.find_all("a", href=True):
-            href = urljoin(url, link["href"])
+            raw_href = link["href"]
 
+            # ❌ Filtrar basura
+            if raw_href.startswith(("javascript:", "mailto:", "#")):
+                continue
+
+            href = urljoin(url, raw_href)
             href, _ = urldefrag(href)
+
+            parsed = urlparse(href)
+
+            if parsed.scheme not in ["http", "https"]:
+                continue
 
             if not is_valid(href, base_domain):
                 continue
@@ -90,6 +108,7 @@ async def crawl(base_url, max_depth=2):
 
             to_visit.append((href, depth + 1))
 
+        # 🧾 Forms
         for form in soup.find_all("form"):
             action = form.get("action")
             method = form.get("method", "get").upper()
